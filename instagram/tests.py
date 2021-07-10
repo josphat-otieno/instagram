@@ -13,4 +13,10 @@ class TestProfile(TestCase):
         self.bio.save_profile()
         profile = Profile.objects.all()
         self.assertTrue(len(profile)>0)
+
+    def test_dalete_profile(self):
+        self.bio.save_profile()
+        profile = Profile.objects.all()
+        self.bio.delete_profile()
+        self.assertTrue(len(profile)==0)
         
