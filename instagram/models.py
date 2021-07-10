@@ -15,3 +15,8 @@ class Profile(models.Model):
     def delete_profile(self):
         self.delete()
 
+    @classmethod
+    def update_profile(cls, value):
+        profile = cls.objects.filter(id = value).update()
+        return profile
+
