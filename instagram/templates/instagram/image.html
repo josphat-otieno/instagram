@@ -1,0 +1,7 @@
+{% extends 'instagram/base.html' %}
+
+{% block content %}
+<h1>{{image.image_name}}</h1>
+<img src="{{image.image.url}}" alt="" style="height: 500px ;width: 700px;">
+<p>{{image.image_caption}}</p>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'instagram/base.html' %}
+
+{% block content %}
+    <h1>{{name}}</h1>
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-6">
+            {% for image in images %}
+            <h1>{{image.image_name}}</h1>
+            <img src="{{image.image.url}}" alt="" style="height: 500px; width: 400;">
+            {% endfor %}
+        </div>
+    </div>
+   {% endblock %} 
