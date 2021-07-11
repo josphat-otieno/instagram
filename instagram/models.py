@@ -30,7 +30,19 @@ class Images(models.Model):
     image_caption = TextField()
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
-    
+    def __str__(self):
+        return self.image_name
+
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+
+    @classmethod
+    def update_caption(cls, id, value):
+        image = cls.objects.filter(id=id).update(image_caption=value)
+        return image
 
 
 
