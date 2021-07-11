@@ -44,6 +44,14 @@ class Images(models.Model):
         image = cls.objects.filter(id=id).update(image_caption=value)
         return image
 
+class Comment(models.Model):
+    comments = models.TextField()
+    commented_at = models.DateTimeField(auto_now_add=True)
+    images = models.ForeignKey(Images, on_delete=CASCADE)
+
+    def __str__(self):
+        return self.comments
+
 
 
     
