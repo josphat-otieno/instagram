@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Profile, Images
+from .models import Profile, Images, Comment
 # Create your tests here.
 
 class TestProfile(TestCase):
@@ -60,6 +60,38 @@ class TestImage(TestCase):
         self.new_image.update_caption()
         self.new_image.save_image()
         self.assertTrue(len(image)==1)
+
+class TestComment(TestCase):
+    def setUp(self):
+        self.bio = Profile(bio = 'i love instagram')
+        self.bio.save_profile()
+
+        self.new_image = Images(image_name='jose', image_caption = 'you look good', profile=self.bio)
+        self.new_image.save()
+
+        self.new_comment = Comment(comments = 'nice',)
+        self.new_comment.save
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.new_comment, Comment))
+
+    def tearDown(self):
+        Profile.objects.all().delete()
+        Images.objects.all().delete()
+        Comment.objects.all().delete()
+
+    def test_save_comment(self):
+        self.new_comment.save_comment()
+        comment = Comment.objects.all()
+        self.assertTrue(len(comment)>0)
+
+    def test_delete_comment(self):
+        self.new_comment.save_comment()
+        comment = Comment.objects.all()
+        self.new_comment.delete_commnet()
+        self.assertTrue(len(comment)==0)
+        
+        
 
     
 

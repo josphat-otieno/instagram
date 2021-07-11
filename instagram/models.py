@@ -52,6 +52,14 @@ class Comment(models.Model):
     def __str__(self):
         return self.comments
 
+    def save_comment(self):
+        self.save()
+
+    def delete_commnet(self):
+        self.delete()
+
+        
+
 
 
     
