@@ -9,7 +9,7 @@
         <div class="col-md-6">
             {% for image in images %}
             <h1>{{image.image_name}}</h1>
-            <img src="{{image.image.url}}" alt="" style="height: 500px; width: 400;">
+            <a href="{% url 'image_detail' image.id %}"><img src="{{image.image.url}}" alt="" style="height: 500px; width: 400;"></a>
             {% endfor %}
         </div>
     </div>
