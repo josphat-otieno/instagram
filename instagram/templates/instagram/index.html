@@ -2,14 +2,28 @@
 
 {% block content %}
     <h1>{{name}}</h1>
+    
     <div class="row">
         <div class="col-md-4">
-
+            
         </div>
         <div class="col-md-6">
             {% for image in images %}
             <h1>{{image.image_name}}</h1>
             <a href="{% url 'image_detail' image.id %}"><img src="{{image.image.url}}" alt="" style="height: 500px; width: 400;"></a>
+            <h2>Comments</h2>
+            {% if not image.comments.all %}
+                No comments Yet...
+             {% else %}
+             <a href="{% url 'add_comment' image.pk%}}">Add Comment</a>
+             <br><br>
+                {% for comment in image.comments.all %}
+                {{comment.name}}- {{comment.commented_at}}
+                <br>
+                {{comment.comments}}
+                {% endfor %}
+
+            {% endif %}
             {% endfor %}
         </div>
     </div>

@@ -1,3 +1,4 @@
+from collections import UserDict
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import CharField, TextField
@@ -26,7 +27,7 @@ class Profile(models.Model):
 
 class Images(models.Model):
     image = ImageField(upload_to = "images/")
-    image_name = CharField(max_length=30)
+    image_name = CharField(max_length=30) 
     image_caption = TextField()
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
@@ -45,12 +46,13 @@ class Images(models.Model):
         return image
 
 class Comment(models.Model):
+    name = models.CharField(max_length=60, default='')
     comments = models.TextField()
     commented_at = models.DateTimeField(auto_now_add=True)
-    images = models.ForeignKey(Images, on_delete=CASCADE)
+    images = models.ForeignKey(Images, related_name = 'comments',on_delete=CASCADE)
 
     def __str__(self):
-        return self.comments
+        return '%s - %s' %(self.images.image_name, self.name)
 
     def save_comment(self):
         self.save()

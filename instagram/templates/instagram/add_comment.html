@@ -1,0 +1,13 @@
+{% extends 'instagram/base.html' %}
+{% block title %}Comment on Image{% end block %}
+
+{% block content %}
+    <h1>Add Comment</h1>
+    <br> <br>
+    <div class="form-group">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-seconadry">Add Commnet</button>
+        </form>
+    </div>
