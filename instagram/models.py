@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import CharField, TextField
 from django.db.models.fields.files import ImageField
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -29,7 +30,7 @@ class Images(models.Model):
     image = ImageField(upload_to = "images/")
     image_name = CharField(max_length=30) 
     image_caption = TextField()
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.image_name
