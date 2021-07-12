@@ -22,6 +22,7 @@
                 {% endfor %}
 
             {% endif %}
+            <a href="{% url 'delete_image' image.id %}">Delete</a>
             {% endfor %}
 
         </div>

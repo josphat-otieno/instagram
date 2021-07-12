@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render,get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .models import Images, Profile, Comment
-from .forms import ImageForm
+from .forms import ImageForm, CommentForm
 from django.views import generic
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
@@ -29,6 +29,21 @@ class AddCommentView(generic.CreateView):
     template_name = 'add_comment.html'
     fields = '__all__'
 
+# def new_comment(request, image_id):
+#     current_user = request.user
+#     if request.method == 'POST':
+#         comment_form =CommentForm(request.POST, request.FILES)
+#         if comment_form.is_valid():
+#             comment = comment_form.save(commit = False)
+#             comment.profile = current_user
+#             comment.save()
+#             return redirect("index")
+
+    # else:
+    #     comment_form=CommentForm()
+
+    # return render(request, 'instagram/add_comment.html', {"comment_form":comment_form})
+
 @login_required(login_url='/accounts/login/')
 def new_image(request):
     current_user =request.user
@@ -49,8 +64,42 @@ def LikeView(request, pk):
     image.like.add(request.user)
     return HttpResponseRedirect(reverse('image_detail', args=[str(pk)]))
 
+def delete_image(request, image_id):
+    item = Images.objects.get(id =image_id)
+    if request.method =='POST':
+        item.delete()
+        return redirect('/')
+    return render(request, 'instagram/delete.html', {"item":item})
+    # def deleteTask(request, pk):
+    # item = Tasks.objects.get(id=pk)
+    # if request.method =="POST":
+    #     item.delete()
+    #     return redirect("/")
+    # context = {"item": item}
+    
+    
+    # return render(request, 'tasks/delete.html', context)
 
 
+
+# from .forms import CommentForm
+
+# def post_detailview(request, id):
+	
+#     if request.method == 'POST':
+#         coment_form = CommentForm(request.POST or None)
+#         if coment_form.is_valid():
+#             content = request.POST.get('content')
+#             comment = Comment.objects.create(post = post, user = request.user, content = content)
+#             comment.save()
+#         return redirect(images.get_absolute_url())
+#     else:
+#         coment_form = CommentForm()
+		
+#         context ={
+#         'comment_form':coment_form
+#         }
+#         return render(request, 'instagram/detail.html', context)
 
 
 
