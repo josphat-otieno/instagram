@@ -3,12 +3,13 @@ from django.conf import settings
 from django.urls import path
 from django.conf.urls.static import static
 from . import views
-from .views import AddCommentView
+from .views import AddCommentView, LikeView
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^image/(\d+)/$',views.image_detail,name ='image_detail'),
     url(r'^image/(\d+)/$', AddCommentView.as_view(), name ='add_comment'),
-    url(r'^new/image$', views.new_image, name='new-image')
+    url(r'^new/image$', views.new_image, name='new-image'),
+    path('like<int:pk>', views.LikeView, name = 'like_image')
     
 ]
 if settings.DEBUG:

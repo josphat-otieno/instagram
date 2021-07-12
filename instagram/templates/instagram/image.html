@@ -2,6 +2,13 @@
 
 {% block content %}
 <h1>{{image.image_name}}</h1>
-<img src="{{image.image.url}}" alt="" style="height: 500px ;width: 700px;">
+<img src="{{image.image.url}}" alt="" style="height: 400px ;width: 400px;">
 <p>{{image.image_caption}}</p>
+<br><br>
+<hr>
+<form action="{% url 'like_image' image.id%}" method="POST">
+    {%csrf_token%}
+    <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button>- {{total_likes}} Likes
+</form>
+
 {% endblock %}

@@ -4,15 +4,17 @@ from django.db.models.deletion import CASCADE
 from django.db.models.fields import CharField, TextField
 from django.db.models.fields.files import ImageField
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 # Create your models here.
 
 class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
     profile_photo = models.ImageField(upload_to ="profile/")
     bio = models.TextField()
 
     def __str__(self):
-        return self.bio
+        return self.user.username
 
     def save_profile(self):
         self.save()
@@ -25,12 +27,18 @@ class Profile(models.Model):
         profile = cls.objects.filter(id = value).update()
         return profile
 
+def create_profile(sender, **kwargs):
+        if kwargs['created']:
+            user_profile = Profile.objects.create(user = kwargs['instance'])
+post_save.connect(create_profile, sender=User)
+
 
 class Images(models.Model):
     image = ImageField(upload_to = "images/")
     image_name = CharField(max_length=30) 
     image_caption = TextField()
     profile = models.ForeignKey(User, on_delete=models.CASCADE)
+    like = models.ManyToManyField(User, related_name='image')
 
     def __str__(self):
         return self.image_name
@@ -40,11 +48,18 @@ class Images(models.Model):
 
     def delete_image(self):
         self.delete()
+        
+
+    def total_likes(self):
+        return self.like.count()  
+        #vote_count = Item.objects.filter(votes__contest=contestA).count()
 
     @classmethod
     def update_caption(cls, id, value):
         image = cls.objects.filter(id=id).update(image_caption=value)
         return image
+
+   
 
 class Comment(models.Model):
     name = models.CharField(max_length=60, default='')
