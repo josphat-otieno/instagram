@@ -76,6 +76,18 @@ def delete_image(request, image_id):
     #     item.delete()
     #     return redirect("/")
     # context = {"item": item}
+
+def update_image(request, image_id):
+    image = Images.objects.get(id=image_id)
+    update_form = ImageForm(instance=image)
+    context = {"update_form": update_form}
+    if request.method =="POST":
+        update_form = ImageForm(request.POST, instance = image)
+        if update_form.is_valid():
+            update_form.save()
+            return redirect("/")
+
+    return render (request, 'instagram/update_image.html', context)
     
     
     # return render(request, 'tasks/delete.html', context)

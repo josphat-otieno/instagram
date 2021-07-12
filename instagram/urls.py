@@ -11,7 +11,8 @@ urlpatterns = [
     # url(r'^comment/(\d+)$', views.new_comment, name = 'new_comment'),
     url(r'^new/image$', views.new_image, name='new-image'),
     path('like<int:pk>', views.LikeView, name = 'like_image'),
-    path('delete/<int:image_id>/', views.delete_image, name='delete_image')
+    path('delete/<int:image_id>/', views.delete_image, name='delete_image'),
+    path('update_image/<int:image_id>/', views.update_image, name='update_image'),
     
 ]
 if settings.DEBUG:
