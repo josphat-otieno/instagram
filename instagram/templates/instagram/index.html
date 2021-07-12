@@ -15,7 +15,7 @@
             {% if not image.comments.all %}
                 No comments Yet...
              {% else %}
-             <a href="{% url 'add_comment' image.pk%}}">Add Comment</a>
+             <a href="{% url 'add_comment' image.id%}}">Add Comment</a>
              <br><br>
                 {% for comment in image.comments.all %}
                 {{comment.name}}- {{comment.commented_at}}
