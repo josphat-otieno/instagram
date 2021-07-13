@@ -10,12 +10,15 @@
           <h3 class="text-center">Register</h3>
         </div>
         <div class="panel-body">
-          <form action="/accounts/register/" method="post">
+          <form action="/accounts/register" method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
             <div class="text-center">
               <input type="submit" class="btn btn-default btn-sm" value="Sign Up">
             </div>
+            <input type="hidden" name="next" value="{{next}}">
+
+            <p>Already have an account? <a href="/accounts/login"> Log In</a></p>
             <input type="hidden" name="next" value="{{next}}">
           </form>
         </div>

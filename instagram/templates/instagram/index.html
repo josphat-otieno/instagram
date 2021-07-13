@@ -39,6 +39,10 @@
 
 
             </form>
+            <form action="" method="POST">
+                {%csrf_token%}
+                <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button>- {{image_likes}} Likes
+            </form>
             <a href="{% url 'update_image' image.id %}">Update</a>
             <a href="{% url 'delete_image' image.id %}">Delete</a>
             {% endfor %}

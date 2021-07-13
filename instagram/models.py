@@ -10,11 +10,11 @@ from django.db.models.signals import post_save
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
-    # profile_photo = models.ImageField(upload_to ="profile/")
+    profile_photo = models.ImageField(upload_to ="profile/")
     bio = models.TextField()
 
     def __str__(self):
-        return self.user.username
+        return self.bio
 
     def save_profile(self):
         self.save()

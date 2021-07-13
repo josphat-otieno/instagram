@@ -21,9 +21,16 @@ class EditProfileForm(UserChangeForm):
     first_name = forms.CharField(max_length=100, widget=forms.TextInput( attrs={'class': 'form-control'}))
     last_name = forms.CharField(max_length=100, widget=forms.TextInput( attrs={'class': 'form-control'}))
     username = forms.CharField(max_length=100, widget=forms.TextInput( attrs={'class': 'form-control'}))
-    # bio = forms.CharField(max_length=255, widget=forms.TextInput( attrs={'class': 'form-control'}))
-
+    
     class Meta:
         model =User
         fields = ['username', 'first_name', 'last_name', 'email', ]
         
+
+class UserUpdateForm(forms.ModelForm):
+    pass
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio', 'profile_photo']

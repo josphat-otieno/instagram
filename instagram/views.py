@@ -1,15 +1,18 @@
+from django.contrib.messages import success
+from django.core.checks import messages
 from django.shortcuts import redirect, render,get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from .models import Images, Profile, Comment
-from .forms import EditProfileForm, ImageForm, CommentForm
+from .forms import EditProfileForm, ImageForm, CommentForm, ProfileUpdateForm
 from django.views import generic
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserChangeForm
 # Create your views here.
 
+@login_required(login_url='/accounts/login/')
 def index(request):
     name = 'instagram app'
     images = Images.objects.all()
@@ -74,21 +77,7 @@ def update_image(request, image_id):
             return redirect("/")
 
     return render (request, 'instagram/update_image.html', context)
-
-def comment(request,image_id):
-    current_user=request.user
-    image=Images.objects.filter(id=image_id)
-    comment_form=CommentForm(instance=image)
-    if request.method=='POST':
-       comment_form=CommentForm(request.POST,request.FILES, instance=image)
-       if comment_form.is_valid():
-           comment=comment_form.save(commit=False)
-           comment.name=current_user
-           comment.save()
-       return redirect('/')
-    else:
-       comment_form=CommentForm()
-    return render(request,'instagram/add_comment.html',{"comment_form":comment_form,"image":image})
+ 
 
 def search(request):
   if 'user' in request.GET and request.GET['user']:
@@ -127,6 +116,19 @@ def add_comment(request, image_id):
         comment_form = CommentForm()
     
     return render(request, 'instagram/add_comment.html',{"comment_form":comment_form, "image":image})
+
+def profile(request):
+    if request.method == 'POST':
+        user_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid():
+            user_form.save()
+            # messages.success(request, f'Your profile was updated successfuly')
+            return redirect('profile')
+    else:
+        user_form = ProfileUpdateForm(instance=request.user.profile)
+
+        context = {"user_form":user_form}
+        return render(request, 'django_registration/user_profile.html', context)
 
 
 
