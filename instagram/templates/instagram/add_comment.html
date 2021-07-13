@@ -1,4 +1,4 @@
-{% extends 'instagram/base.html' %}
+<!-- {% extends 'instagram/base.html' %}
 {% block title %}Comment on Image{% end block %}
 
 {% block content %}
@@ -10,4 +10,31 @@
             {{ comment_form.as_p }}
             <button class="btn btn-seconadry">Post</button>
         </form>
+    </div> -->
+    {%extends "/instagram/base.html"%}
+    {% load bootstrap3 %}
+    {%load static%}
+    {% block content %}
+    <head>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title>You can edit your information here</title>
+     {{form.media}}
+    {% block styles %} {% bootstrap_css %}
+     <!-- <link rel="stylesheet" href="{% static 'css/news.css' %}"> {% endblock %} -->
+    </head>
+    <body>
+    <div class="container" style="background-color:#fff;">
+        <div class="row">
+     <form  action="{%url 'comment' image_id %}" method="post" enctype="multipart/form-data">
+       {%csrf_token%}
+       {% bootstrap_form form%}
+       <input id="id_myfield" type="submit" class="btn btn-success btn-lg" value="Post">
+     </form>
+      {% block scripts %}
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     {% bootstrap_javascript %} {% endblock %}
+        </div>
     </div>
+    </body>
+    {% endblock %}

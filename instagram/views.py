@@ -17,32 +17,24 @@ def index(request):
 def image_detail(request, image_id):
     try:
         image = Images.objects.get(id = image_id)
-        image_likes = get_object_or_404(Images, id=image_id)
-        total_likes= image_likes.total_likes()
+        image_likes = image.like.count()
+        
     except Images.DoesNotExist:
         raise Http404()
 
-    return render(request,"instagram/image.html", {"image":image, "total_like":total_likes})
+    return render(request,"instagram/image.html", {"image":image, "image_likes":image_likes})
 
 class AddCommentView(generic.CreateView):
     model =Comment
     template_name = 'add_comment.html'
     fields = '__all__'
 
-# def new_comment(request, image_id):
-#     current_user = request.user
-#     if request.method == 'POST':
-#         comment_form =CommentForm(request.POST, request.FILES)
-#         if comment_form.is_valid():
-#             comment = comment_form.save(commit = False)
-#             comment.profile = current_user
-#             comment.save()
-#             return redirect("index")
+def like_image(request, image_id):
+    image = Images.objects.get(id =image_id)
+    image.like.add(request.user)
+    image.save()
+    return HttpResponseRedirect(reverse('image_detail', args=[str(image_id)]))
 
-    # else:
-    #     comment_form=CommentForm()
-
-    # return render(request, 'instagram/add_comment.html', {"comment_form":comment_form})
 
 @login_required(login_url='/accounts/login/')
 def new_image(request):
@@ -59,10 +51,6 @@ def new_image(request):
         form = ImageForm()
     return render (request, 'new_image.html', {"form":form})
 
-def LikeView(request, pk):
-    image = get_object_or_404(Images, id=request.POST.get('image_id'))
-    image.like.add(request.user)
-    return HttpResponseRedirect(reverse('image_detail', args=[str(pk)]))
 
 def delete_image(request, image_id):
     item = Images.objects.get(id =image_id)
@@ -70,12 +58,7 @@ def delete_image(request, image_id):
         item.delete()
         return redirect('/')
     return render(request, 'instagram/delete.html', {"item":item})
-    # def deleteTask(request, pk):
-    # item = Tasks.objects.get(id=pk)
-    # if request.method =="POST":
-    #     item.delete()
-    #     return redirect("/")
-    # context = {"item": item}
+   
 
 def update_image(request, image_id):
     image = Images.objects.get(id=image_id)
@@ -88,30 +71,23 @@ def update_image(request, image_id):
             return redirect("/")
 
     return render (request, 'instagram/update_image.html', context)
-    
-    
-    # return render(request, 'tasks/delete.html', context)
+
+def comment(request,image_id):
+   current_user=request.user
+   if request.method=='POST':
+       image=Images.objects.filter(id=image_id).first()
+
+       comment_form=CommentForm(request.POST,request.FILES)
+       if comment_form.is_valid():
+           comment=comment_form.save(commit=False)
+           comment.name=current_user
+           comment.save()
+       return redirect('/')
+   else:
+       comment_form=CommentForm()
+   return render(request,'instagram/add_comment.html',{"comment_form":comment_form,"image_id":image_id})
 
 
-
-# from .forms import CommentForm
-
-# def post_detailview(request, id):
-	
-#     if request.method == 'POST':
-#         coment_form = CommentForm(request.POST or None)
-#         if coment_form.is_valid():
-#             content = request.POST.get('content')
-#             comment = Comment.objects.create(post = post, user = request.user, content = content)
-#             comment.save()
-#         return redirect(images.get_absolute_url())
-#     else:
-#         coment_form = CommentForm()
-		
-#         context ={
-#         'comment_form':coment_form
-#         }
-#         return render(request, 'instagram/detail.html', context)
 
 
 

@@ -6,9 +6,9 @@
 <p>{{image.image_caption}}</p>
 <br><br>
 <hr>
-<form action="{% url 'like_image' image.id%}" method="POST">
+<form action="{% url 'likeImage' image.id%}" method="POST">
     {%csrf_token%}
-    <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button>- {{total_likes}} Likes
+    <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button>- {{image_likes}} Likes
 </form>
 
 {% endblock %}

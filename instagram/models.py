@@ -38,7 +38,7 @@ class Images(models.Model):
     image_name = CharField(max_length=30) 
     image_caption = TextField()
     profile = models.ForeignKey(User, on_delete=models.CASCADE)
-    like = models.ManyToManyField(User, related_name='image')
+    like = models.ManyToManyField(User, related_name='like')
 
     def __str__(self):
         return self.image_name
