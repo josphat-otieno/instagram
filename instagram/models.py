@@ -10,7 +10,7 @@ from django.db.models.signals import post_save
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
-    profile_photo = models.ImageField(upload_to ="profile/")
+    # profile_photo = models.ImageField(upload_to ="profile/")
     bio = models.TextField()
 
     def __str__(self):
@@ -26,6 +26,10 @@ class Profile(models.Model):
     def update_profile(cls, value):
         profile = cls.objects.filter(id = value).update()
         return profile
+
+    # @classmethod
+    # def search_profile(cls, name):
+    #     return cls.objects.filter(user__username__icontains=name).all()
 
 def create_profile(sender, **kwargs):
         if kwargs['created']:
