@@ -6,7 +6,7 @@
     <div class="media">
         <img src="{{user.profile.profile_photo.url}}" alt="">
         <div class="media-body">
-            <h2 class="account-heading">{{user.usename}}</h2>
+            <h2 class="account-heading">{{user.username}}</h2>
             <p class="text-secondary">{{user.profile.bio}}</p>
         </div>
     </div>
@@ -15,7 +15,9 @@
             <form  method="POST">
                 
                 {% csrf_token %}
+
                 {{ user_form.as_p }}
+                {{ profile_form.as_p }}
                 <button type="submit" class="btn btn-seconadry">Update Profile</button>
             </form>
         </div>

@@ -12,6 +12,7 @@ urlpatterns = [
     path('update_image/<int:image_id>/', views.update_image, name='update_image'),
     path('likeimage/<int:image_id>', views.like_image, name = 'likeImage'),
     path('comment/(<int:image_id>',views.add_comment, name='add_comment'),
+    path('search/', views.search, name='search'),
     path('edit_profile/', UserEditView.as_view(), name='edit_profile'),
     path('profile/', views.profile, name='profile')
 
