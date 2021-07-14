@@ -34,7 +34,7 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         
-        bio = forms.CharField(max_length=255, widget=forms.TextInput(attrs={"class": 'form-control'}))
-        profile_photo = forms.ImageField(widget=forms.FileInput)
+        # bio = forms.CharField(max_length=255, widget=forms.TextInput(attrs={"class": 'form-control'}))
+        # profile_photo = forms.ImageField(widget=forms.FileInput)
         #last_name = forms.CharField(max_length=100, widget=forms.TextInput( attrs={'class': 'form-control'}))
         fields = ['bio', 'profile_photo']
