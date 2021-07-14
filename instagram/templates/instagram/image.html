@@ -1,12 +1,18 @@
+
 {% extends 'instagram/base.html' %}
 
 {% block content %}
-<h1>{{image.image_name}}</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h1>{{image.image_name}}</h1>
 <img src="{{image.image.url}}" alt="" style="height: 400px ;width: 400px;">
 <p>{{image.image_caption}}</p>
 
 <hr>
-<div class=><h2>Comments</h2>
+<div >
+    <h3>Comments</h3>
     {% if not image.comments.all %}
         No comments Yet
         
@@ -20,15 +26,19 @@
         {% endfor %}
 
     {% endif %}
-     
-  
     <a href="{% url 'add_comment' image.id %}">Add commnet</a>
 
 </div>
 <form action="" method="POST">
     {%csrf_token%}
-    <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button>- {{image_likes}} Likes
+    <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button> {{image_likes}}
 </form>
-<a href="{% url 'update_image' image.id %}">Update</a>
-<a href="{% url 'delete_image' image.id %}">Delete</a>
+<button class="btn btn-md btn-success"> <a href="{% url 'update_image' image.id %}">Update</a></button>
+<button class="btn btn-md btn-warning"><a href="{% url 'delete_image' image.id %}">Delete</a></button>
+</div>
+
+
+        </div>
+    </div>
+    
 {% endblock %}

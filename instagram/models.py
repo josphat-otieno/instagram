@@ -32,10 +32,6 @@ class Profile(models.Model):
     def search_profile(cls, name):
         return cls.objects.filter(user__username__icontains=name).all()
 
-# def create_profile(sender, **kwargs):
-#         if kwargs['created']:
-#             user_profile = Profile.objects.create(user = kwargs['instance'])
-# post_save.connect(create_profile, sender=User)
 
 
 class Images(models.Model):
