@@ -4,8 +4,27 @@
 <h1>{{image.image_name}}</h1>
 <img src="{{image.image.url}}" alt="" style="height: 400px ;width: 400px;">
 <p>{{image.image_caption}}</p>
-<br>
+
 <hr>
+<div class=><h2>Comments</h2>
+    {% if not image.comments.all %}
+        No comments Yet
+        
+     {% else %}
+     
+     <br>
+        {% for comment in image.comments.all %}
+        {{comment.name}}- {{comment.commented_at}}
+        <br>
+        {{comment.comments}}
+        {% endfor %}
+
+    {% endif %}
+     
+  
+    <a href="{% url 'add_comment' image.id %}">Add commnet</a>
+
+</div>
 <form action="" method="POST">
     {%csrf_token%}
     <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button>- {{image_likes}} Likes

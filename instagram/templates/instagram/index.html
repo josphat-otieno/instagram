@@ -17,25 +17,7 @@
                         <a href="{% url 'image_detail' image.id %}"><img src="{{image.image.url}}" alt="" style="height: 500px; width: 700px ;border-radius: 8px;padding: 5px;"></a>
                         <p class="text text-center">{{image.image_caption}}</p>
                     </div>
-                    <div class=><h2>Comments</h2>
-                        {% if not image.comments.all %}
-                            No comments Yet
-                            
-                         {% else %}
-                         
-                         <br>
-                            {% for comment in image.comments.all %}
-                            {{comment.name}}- {{comment.commented_at}}
-                            <br>
-                            {{comment.comments}}
-                            {% endfor %}
-            
-                        {% endif %}
-                          <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button>- {{image_likes}} Likes
-                      
-                        <a href="{% url 'add_comment' image.id %}">Add commnet</a>
-                   
-                    </div>
+                    
                         <!-- <div class="card" style="width: 18rem;">
                             
                             <div class="card-body">
