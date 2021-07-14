@@ -9,12 +9,12 @@ from django.db.models.signals import post_save
 # Create your models here.
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
-    profile_photo = models.ImageField(upload_to ="profile/")
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_photo = models.ImageField(upload_to ="profile/", default='')
     bio = models.TextField()
 
     def __str__(self):
-        return self.bio
+        return self.user.username
 
     def save_profile(self):
         self.save()
@@ -27,9 +27,9 @@ class Profile(models.Model):
         profile = cls.objects.filter(id = value).update()
         return profile
 
-    # @classmethod
-    # def search_profile(cls, name):
-    #     return cls.objects.filter(user__username__icontains=name).all()
+    @classmethod
+    def search_profile(cls, name):
+        return cls.objects.filter(user__username__icontains=name).all()
 
 def create_profile(sender, **kwargs):
         if kwargs['created']:
