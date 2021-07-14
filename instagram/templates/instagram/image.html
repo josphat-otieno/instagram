@@ -1,4 +1,3 @@
-
 {% extends 'instagram/base.html' %}
 
 {% block content %}
@@ -7,38 +6,51 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <h1>{{image.image_name}}</h1>
-<img src="{{image.image.url}}" alt="" style="height: 400px ;width: 400px;">
-<p>{{image.image_caption}}</p>
+            <img src="{{image.image.url}}" alt="" style="height: 400px ;width: 400px;">
+            <p>{{image.image_caption}}</p>
 
-<hr>
-<div >
-    <h3>Comments</h3>
-    {% if not image.comments.all %}
-        No comments Yet
-        
-     {% else %}
-     
-     <br>
-        {% for comment in image.comments.all %}
-        {{comment.name}}- {{comment.commented_at}}
-        <br>
-        {{comment.comments}}
-        {% endfor %}
+            <hr>
+            <div>
+                <h3>Comments</h3>
+                {% if not image.comments.all %}
+                No comments Yet
 
-    {% endif %}
-    <a href="{% url 'add_comment' image.id %}">Add commnet</a>
+                {% else %}
 
-</div>
-<form action="" method="POST">
-    {%csrf_token%}
-    <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button> {{image_likes}}
-</form>
-<button class="btn btn-md btn-success"> <a href="{% url 'update_image' image.id %}">Update</a></button>
-<button class="btn btn-md btn-warning"><a href="{% url 'delete_image' image.id %}">Delete</a></button>
-</div>
+                <br>
+                {% for comment in image.comments.all %}
+                {{comment.name}}- {{comment.commented_at}}
+                <br>
+                {{comment.comments}}
+                {% endfor %}
 
+                {% endif %}
+                <a href="{% url 'add_comment' image.id %}">Add commnet</a>
 
+            </div>
+            <form action="" method="POST">
+                {%csrf_token%}
+                <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like
+                </button> {{image_likes}}
+            </form>
+            <button class="btn btn-md btn-success"> <a href="{% url 'update_image' image.id %}">Update</a></button>
+            <button class="btn btn-md btn-warning"><a href="{% url 'delete_image' image.id %}">Delete</a></button>
         </div>
+        <div class="col-md-3">
+            <h1>Profile Information</h1>
+            <div class="col-md-6">
+            <h1>Profile</h1>
+            <h3>{{user}}</h3>
+            <h3>{{user.first_name}}</h3>
+            <p>{{user.profile.bio}}</p>
+            <p>{{user.email}}</p>
+            
+            <img src="{{user.profile.profile_photo.url}}" alt="">
+        
+        </div>
+
+
     </div>
-    
+</div>
+
 {% endblock %}
