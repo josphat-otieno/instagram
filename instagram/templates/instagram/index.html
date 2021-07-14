@@ -1,61 +1,54 @@
 {% extends 'instagram/base.html' %}
 {% load bootstrap3 %}
-{% load bootstrap4 %}
-{% load static %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+ {% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 {% block content %}
-
-<div class="container" style="background-color: antiquewhite;">
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6" style="align-items: center;border-radius: 8px">
-            {% for image in images %}
-            <!-- <div class="panel">
-                <div>{{user.username}}</div>
-                <div class=>
-                    <a href="{% url 'image_detail' image.id %}"><img src="{{image.image.url}}" alt=""
-                            style="border-radius: 8px;padding: 5px; padding: auto;"></a>
-                    <p class="text text-center">{{image.image_caption}}</p>
-                </div>
-                <div class=>
-                    <h2>Comments</h2>
-                    {% if not image.comments.all %}
-                    No comments Yet
-
-                    {% else %}
-
-                    <br>
-                    {% for comment in image.comments.all %}
-                    {{comment.name}}- {{comment.commented_at}}
-                    <br>
-                    {{comment.comments}}
-                    {% endfor %}
-
-                    {% endif %}
-                    <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like
-                    </button>- {{image_likes}} Likes
-
-                    <a href="{% url 'add_comment' image.id %}">Add commnet</a>
-
-                </div> -->
-                <div class="pnel" style="border:thin;">
-                    <h4 class="panel-title">Butter Pecan</h4>
-                    <div class="embed-responsive embed-responsive-16by9">
-                       <img alt="Card image cap" class="panel-img-top embed-responsive-item" src="{{image.image.url}}" style="height: 500px;"> 
+    
+    <div class="container" style="background-color: antiquewhite;">
+        <div class="row">
+            <div class="col-md-3"></div>
+              <div class="col-md-6" style="align-items: center;border-radius: 8px">
+                  {% for image in images %}
+                  <div class="panel">
+                      <div>{{user.username}}</div>
+                      <div class=>
+                        <a href="{% url 'image_detail' image.id %}"><img src="{{image.image.url}}" alt="" style="height: 500px; width: 700px ;border-radius: 8px;padding: 5px;"></a>
+                        <p class="text text-center">{{image.image_caption}}</p>
                     </div>
-                    <div class="card-block">
+                    <div class=><h2>Comments</h2>
+                        {% if not image.comments.all %}
+                            No comments Yet
+                            
+                         {% else %}
+                         
+                         <br>
+                            {% for comment in image.comments.all %}
+                            {{comment.name}}- {{comment.commented_at}}
+                            <br>
+                            {{comment.comments}}
+                            {% endfor %}
+            
+                        {% endif %}
+                          <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button>- {{image_likes}} Likes
                       
-                      <p class="card-text">Roasted pecans, butter and vanilla come together to make this wonderful ice cream</p>
+                        <a href="{% url 'add_comment' image.id %}">Add commnet</a>
+                   
                     </div>
+                        <!-- <div class="card" style="width: 18rem;">
+                            
+                            <div class="card-body">
+                                <img class="card-img-top" src="{{image.image.url}}" alt="Card image cap" style="height: 500px; width: 500;border-radius: 8px;padding: 5px;">
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                          </div> -->
+
                   </div>
-
-         
-
-
-
-            <!-- <form class="form" action="" method="post">
+                 
+               
+                  
+                  <!-- <form class="form" action="" method="post">
                       {% csrf_token %}
                       
                           
@@ -66,18 +59,18 @@
                               <button type="submit" class="btn btn-sm btn-outline-primary">post</button>
                           </div>
                       </div> -->
-            <hr>
-            {% endfor %}
+                      <hr>
+                  {% endfor %}
+                  
+              </div>
+            
+             <div class="col-md-3">
 
-        </div>
-
-        <div class="col-md-3">
-
+             </div>
         </div>
     </div>
-</div>
-
-<!-- <div class="col-md-6">
+    
+        <!-- <div class="col-md-6">
             <h1>Profile</h1>
             <h3>{{user}}</h3>
             <h3>{{user.first_name}}</h3>
@@ -85,5 +78,5 @@
             
             <img src="{{user.profile.profile_photo.url}}" alt="">
         </div> -->
-
-{% endblock %}
+    </div>
+   {% endblock %} 
