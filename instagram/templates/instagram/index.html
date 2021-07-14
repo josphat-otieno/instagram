@@ -1,64 +1,39 @@
 {% extends 'instagram/base.html' %}
 {% load bootstrap3 %}
 
- {% load static %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 {% block content %}
-    
-    <div class="container" style="background-color: antiquewhite;">
-        <div class="row">
-            <div class="col-md-3"></div>
-              <div class="col-md-6" style="align-items: center;border-radius: 8px">
-                  {% for image in images %}
-                  <div class="panel">
-                      <div>{{user.username}}</div>
-                      <div class=>
-                        <a href="{% url 'image_detail' image.id %}"><img src="{{image.image.url}}" alt="" style="height: 500px; width: 500px ;border-radius: 8px;padding: 5px;"></a>
-                        <p class="text text-center">{{image.image_caption}}</p>
-                    </div>
-                    
-                        <!-- <div class="card" style="width: 18rem;">
-                            
-                            <div class="card-body">
-                                <img class="card-img-top" src="{{image.image.url}}" alt="Card image cap" style="height: 500px; width: 500;border-radius: 8px;padding: 5px;">
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                          </div> -->
 
-                  </div>
-                 
-               
-                  
-                  <!-- <form class="form" action="" method="post">
-                      {% csrf_token %}
-                      
-                          
-                              {% for field in comment_form %}
-                                      {% bootstrap_field field %}
-                                  {% endfor %}
-                      
-                              <button type="submit" class="btn btn-sm btn-outline-primary">post</button>
-                          </div>
-                      </div> -->
-                      <hr>
-                  {% endfor %}
-                  
-              </div>
-            
-             <div class="col-md-3">
+<div class="container" style="background-color: antiquewhite;">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="align-items: center;border-radius: 8px">
+            {% for image in images %}
+        
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="text-center">{{user.username}}</h3>
+                </div>
+                <div class="panel-body">
+                    <a href="{% url 'image_detail' image.id %}"><img src="{{image.image.url}}" alt=""
+                            style="height: 500px; width: 500px ;border-radius: 8px;padding: 5px;"></a>
+                    <p class="text text-center">{{image.image_caption}}</p>
 
-             </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
         </div>
+
+        <div class="col-md-3">
+
+        </div>
+
     </div>
-    
-        <!-- <div class="col-md-6">
-            <h1>Profile</h1>
-            <h3>{{user}}</h3>
-            <h3>{{user.first_name}}</h3>
-            <p>{{user.profile.bio}}</p>
-            
-            <img src="{{user.profile.profile_photo.url}}" alt="">
-        </div> -->
-    </div>
-   {% endblock %} 
+
+</div>
+{% endblock %}
