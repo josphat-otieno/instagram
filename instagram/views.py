@@ -30,10 +30,6 @@ def image_detail(request, image_id):
 
     return render(request,"instagram/image.html", {"image":image, "image_likes":image_likes})
 
-class AddCommentView(generic.CreateView):
-    model =Comment
-    template_name = 'add_comment.html'
-    fields = '__all__'
 
 @login_required(login_url='/accounts/login/')
 def like_image(request, image_id):
@@ -89,10 +85,6 @@ def search(request):
   else: 
     return render(request, 'instagram/search.html')
     
-class AddComment(CreateView):
-    model = Comment
-    template_name = 'add_commnent.html'
-    fields = ['comments']
 
 class UserEditView(generic.UpdateView):
     form_class = EditProfileForm
@@ -101,6 +93,7 @@ class UserEditView(generic.UpdateView):
 
     def get_object(self):
         return self.request.user
+
 @login_required(login_url='/accounts/login/')
 def add_comment(request, image_id):
     image = get_object_or_404(Images, id=image_id)
@@ -110,7 +103,7 @@ def add_comment(request, image_id):
         if comment_form.is_valid():
             comments = comment_form.save(commit=False)
             comments.image = image
-            comments.user = request.user.profile
+            comments.user = request.user
             
             return redirect('index')
     else:

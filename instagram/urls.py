@@ -3,7 +3,7 @@ from django.conf import settings
 from django.urls import path
 from django.conf.urls.static import static
 from . import views
-from .views import AddCommentView,  UserEditView
+from .views import   UserEditView
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^image/(\d+)/$',views.image_detail,name ='image_detail'),
