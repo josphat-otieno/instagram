@@ -1,4 +1,47 @@
 {% extends 'instagram/base.html' %}
 {% block content %}
- <h1>{{user.username}}</h1>
- {% endblock %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {% if users %}
+            <h1 class="text-center"style="font-family: 'Dancing Script', cursive; text-decoration: none; ">Instagram</h1>
+            <h5 class="text-center">Found {{ results|length }}user</h5>
+            {% else %}
+            <h5 class="text-center"> Found 0 user with that username <strong>{{message}}</strong></h5>
+            <a class="d-block mx-auto btn btn-sm btn-info d-block mx-auto" href="/">
+                Back Home
+            </a>
+            {% endif %}
+            <hr>
+            {% if users %}
+            {% for user in users %}
+            <div class="container">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img style="width: 100%;
+                            height: 100%;" src="{{user.user.profile.profile_photo.url}}" alt="profile_photo"
+                                class="img-responsive">
+                        </div>
+                        <div class="col-md-8">
+                            <span><strong>{{user.user.username}}</strong></span>
+                            <p>Email-{{user.email}}</p>
+                            <p>Bio-{{user.profile.bio}}.</p>
+                            
+                            <br>
+
+                        </div>
+                    </div>
+                    <br>
+                    <a class="d-block mx-auto btn btn-sm btn-info d-block mx-auto" href="/">
+                        Back Home
+                    </a>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

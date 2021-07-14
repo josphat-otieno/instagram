@@ -35,9 +35,10 @@ class AddCommentView(generic.CreateView):
     template_name = 'add_comment.html'
     fields = '__all__'
 
+@login_required(login_url='/accounts/login/')
 def like_image(request, image_id):
     image = Images.objects.get(id =image_id)
-    image.like.add(request.user)
+    image.like.add(request.user.profile)
     image.save()
     return HttpResponseRedirect(reverse('image_detail', args=[str(image_id)]))
 
@@ -57,7 +58,7 @@ def new_image(request):
         form = ImageForm()
     return render (request, 'new_image.html', {"form":form})
 
-
+@login_required(login_url='/accounts/login/')
 def delete_image(request, image_id):
     item = Images.objects.get(id =image_id)
     if request.method =='POST':
@@ -65,7 +66,7 @@ def delete_image(request, image_id):
         return redirect('/')
     return render(request, 'instagram/delete.html', {"item":item})
    
-
+@login_required(login_url='/accounts/login/')
 def update_image(request, image_id):
     image = Images.objects.get(id=image_id)
     update_form = ImageForm(instance=image)
@@ -78,7 +79,7 @@ def update_image(request, image_id):
 
     return render (request, 'instagram/update_image.html', context)
  
-
+@login_required(login_url='/accounts/login/')
 def search(request):
   if 'user' in request.GET and request.GET['user']:
     search_term = request.GET.get('user')
@@ -100,7 +101,7 @@ class UserEditView(generic.UpdateView):
 
     def get_object(self):
         return self.request.user
-
+@login_required(login_url='/accounts/login/')
 def add_comment(request, image_id):
     image = get_object_or_404(Images, id=image_id)
 
@@ -117,6 +118,7 @@ def add_comment(request, image_id):
     
     return render(request, 'instagram/add_comment.html',{"comment_form":comment_form, "image":image})
 
+@login_required(login_url='/accounts/login/')
 def profile(request):
     if request.method == 'POST':
         user_form=EditProfileForm(request.POST, instance =request.user)

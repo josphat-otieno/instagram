@@ -1,53 +1,65 @@
 {% extends 'instagram/base.html' %}
 {% load bootstrap3 %} {% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 {% block content %}
-    <h1>{{name}}</h1>
     
-    <div class="row">
-      
-        <div class="col-md-6">
-            {% for image in images %}
-            <h1>{{image.image_name}}</h1>
-            <a href="{% url 'image_detail' image.id %}"><img src="{{image.image.url}}" alt="" style="height: 500px; width: 400;"></a>
-            <h2>Comments</h2>
-            {% if not image.comments.all %}
-                No comments Yet... <a href="#">Add one</a>
-                
-             {% else %}
-             
-             <br><br>
-                {% for comment in image.comments.all %}
-                {{comment.name}}- {{comment.commented_at}}
-                <br>
-                {{comment.comments}}
-                {% endfor %}
-
-            {% endif %}
-            <a href="{% url 'add_comment' image.id %}">Add commnet</a>
-            <form class="form" action="" method="post">
-                {% csrf_token %}
-                
-                    
-                        {% for field in comment_form %}
-                                {% bootstrap_field field %}
-                            {% endfor %}
-                
-                        <button type="submit" class="btn btn-sm btn-outline-primary">post</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+              <div class="col-md-6" style="align-items: center;border-radius: 8px">
+                  {% for image in images %}
+                  <div class="panel">
+                      <div class="panel-header">{{user.username}}</div>
+                      <div class="panel-body">
+                        <a href="{% url 'image_detail' image.id %}"><img src="{{image.image.url}}" alt="" style="height: 500px; width: 500;border-radius: 8px;padding: 5px;"></a>
+                        <p >{{image.image_caption}}</p>
                     </div>
-                </div>
+                    <div class="panel-footer"><h2>Comments</h2>
+                        {% if not image.comments.all %}
+                            No comments Yet
+                            
+                         {% else %}
+                         
+                         <br>
+                            {% for comment in image.comments.all %}
+                            {{comment.name}}- {{comment.commented_at}}
+                            <br>
+                            {{comment.comments}}
+                            {% endfor %}
+            
+                        {% endif %}
+                        <form action="" method="POST">
+                          {%csrf_token%}
+                          <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button>- {{image_likes}} Likes
+                      </form>
+                        <a href="{% url 'add_comment' image.id %}">Add commnet</a></div>
+                  </div>
+                 
+                  
+                  
+                  <!-- <form class="form" action="" method="post">
+                      {% csrf_token %}
+                      
+                          
+                              {% for field in comment_form %}
+                                      {% bootstrap_field field %}
+                                  {% endfor %}
+                      
+                              <button type="submit" class="btn btn-sm btn-outline-primary">post</button>
+                          </div>
+                      </div> -->
+                      <hr>
+                  {% endfor %}
+                  
+              </div>
+            
+             <div class="col-md-3">
 
-
-            </form>
-            <form action="" method="POST">
-                {%csrf_token%}
-                <button type="submit" name="image_id" value="{{ image.id }}" class="btn btn-primary btn-md">Like </button>- {{image_likes}} Likes
-            </form>
-            <a href="{% url 'update_image' image.id %}">Update</a>
-            <a href="{% url 'delete_image' image.id %}">Delete</a>
-            {% endfor %}
-
+             </div>
         </div>
+    </div>
+    
         <!-- <div class="col-md-6">
             <h1>Profile</h1>
             <h3>{{user}}</h3>

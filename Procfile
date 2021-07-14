@@ -1,0 +1,1 @@
+web: gunicorn instagramaApp.wsgi --log-file -
