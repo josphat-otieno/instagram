@@ -13,19 +13,24 @@
             <div>
                 <h3>Comments</h3>
                 {% if not image.comments.all %}
-                No comments Yet
+                        No comments Yet
+        
+                        {% else %}
 
-                {% else %}
-
-                <br>
-                {% for comment in image.comments.all %}
-                {{comment.name}}- {{comment.commented_at}}
-                <br>
-                {{comment.comments}}
-                {% endfor %}
-
-                {% endif %}
-                <a href="{% url 'add_comment' image.id %}">Add commnet</a>
+                <ul>
+                    <li>  
+                        <br>
+                        {% for comment in image.comments.all %}
+                        {{comment.name}}- {{comment.commented_at}}
+                        <br>
+                        {{comment.comments}}
+                        {% endfor %}
+        
+                        {% endif %}
+                        <a style="margin-left: 20px;" href="{% url 'add_comment' image.id %}">Add commnet</a></li>
+                </ul>
+               
+              
 
             </div>
             <form action="" method="POST">
@@ -39,14 +44,15 @@
         <div class="col-md-3">
             <h1>Profile Information</h1>
             <div class="col-md-6">
-            <h1>Profile</h1>
+           
             <h3>{{user}}</h3>
-            <h3>{{user.first_name}}</h3>
-            <p>{{user.profile.bio}}</p>
-            <p>{{user.email}}</p>
-            
-            <img src="{{user.profile.profile_photo.url}}" alt="">
-        
+            <h3> Name: {{user.first_name}}</h3>
+            <p> Bio {{user.profile.bio}}</p>
+            <p> Email :{{user.email}}</p>
+            <img src="{{user.profile.profile_photo.url}}" alt=""><br>
+
+            <button class="btn btn-secondary"> <a href="{% url 'profile' %}"> Edit Profile</a> </button>
+
         </div>
 
 
