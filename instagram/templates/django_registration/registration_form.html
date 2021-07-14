@@ -4,10 +4,11 @@
 {% block content %}
 <div class="container">
   <div class="row">
+    <div class="col-md-3"></div>
     <div  class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="text-center">Register</h3>
+          <h3 class="text-center">Sign Up For IG</h3>
         </div>
         <div class="panel-body">
           <form action="/accounts/register/" method="post">
@@ -18,14 +19,14 @@
             </div>
             <input type="hidden" name="next" value="{{next}}">
 
-            <p>Already have an account? <a href="/accounts/login"> Log In</a></p>
+            <p>Already have an account? <a href="/accounts/login"> <button class="btn btn-md btn-primary">LogIn</button></a></p>
             <input type="hidden" name="next" value="{{next}}">
           </form>
         </div>
       </div>
     </div>
     <!-- empty div -->
-    <div class="col-md-4"></div>
+    <div class="col-md-3"></div>
   </div>
 </div>
 {% endblock %}

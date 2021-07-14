@@ -6,7 +6,11 @@
     <!-- Empty div -->
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <h2>LOGIN</h2>
+      <div class="navbar-header"
+      style="font-family: 'Dancing Script', cursive; text-decoration: none; font-weight: bold; align-items: center;" >
+      <a href=""><img src="https://img.icons8.com/ios/50/000000/instagram-new--v2.png" /></a>
+      <p style="font-size: 25px;" class="navbar-brand" href="{%url 'index' %}">Instagram</p>
+    </div>
       {% if form.errors %}
         <p> Enter the correct Username or password </p>
       {% endif %}
@@ -26,7 +30,7 @@
             </div>
 
             <input type="hidden" name="next" value="{{next}}">
-            <p class="container">You don't have an account? <a href="/accounts/register"> Sign Up</a></p>
+            <p class="container">You don't have an account? <button class="btn btn-primary btn-md"><a href="/accounts/register" style="color: antiquewhite;">  Sign Up</a></button></p>
 
           </form>
 
