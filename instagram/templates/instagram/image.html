@@ -1,9 +1,12 @@
 {% extends 'instagram/base.html' %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 
 {% block content %}
 <div class="container" style="padding-top: 90px;">
     <div class="row">
-        <div class="col-md-3"></div>
+        <div class="col-md-2"></div>
         <div class="col-md-6">
             <h1>{{image.image_name}}</h1>
             <img src="{{image.image.url}}" alt="" style="height: 400px ;width: 400px;">
@@ -20,9 +23,9 @@
                     <li>  
                         <br>
                         {% for comment in image.comments.all %}
-                        {{comment.name}}- {{comment.commented_at}}
+                      <p>  {{comment.name}} - {{comment.commented_at}} </p> 
                         <br>
-                        {{comment.comments}}
+                       <p> {{comment.comments}} </p> 
                         {% endfor %}
         
                         {% endif %}
@@ -40,11 +43,10 @@
             <button class="btn btn-md btn-success"> <a href="{% url 'update_image' image.id %}">Update</a></button>
             <button class="btn btn-md btn-warning"><a href="{% url 'delete_image' image.id %}">Delete</a></button>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4" style=" font-family: Open Sans;">
             <h1>Profile Information</h1>
             <div class="col-md-6">
            
-            <h3>{{user}}</h3>
             <h3> Name: {{user.first_name}}</h3>
             <p> Bio :{{user.profile.bio}}</p>
             <p> Email :{{user.email}}</p>

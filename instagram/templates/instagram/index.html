@@ -4,6 +4,9 @@
 {% load static %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 
 {% block content %}
 
@@ -20,7 +23,7 @@
                 <div class="panel-body">
                     <a href="{% url 'image_detail' image.id %}"><img src="{{image.image.url}}" alt=""
                             style="height: 500px; width: 500px ;border-radius: 8px;padding: 5px;"></a>
-                    <p class="text text-center">{{image.image_caption}}</p>
+                    <p class="text text-center" style="font-family: Open Sans ; font-size: large;">{{image.image_caption}}</p>
 
                 </div>
 
