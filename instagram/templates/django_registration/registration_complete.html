@@ -1,4 +1,4 @@
-{%extends "registration/base.html"%}
+{% extends 'django_registration/base.html' %}
 {% load static %}
 {% load bootstrap3 %}
 
@@ -20,7 +20,7 @@
         <div class="container-fluid">
 
             <div class='navbar-right' id='login' class="col-sm-4">
-                <form action="/accounts/login/" method="post">
+                <form class='navbar-form navbar-right' action="/accounts/login/" method="post">
                     {% csrf_token %}
                     <div class="form-group">
                         <input type="text" class='form-control' autocomplete="off" name='username'
